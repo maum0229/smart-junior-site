@@ -38,7 +38,7 @@ pre {
 
   try {
     status.textContent = "Fetching encrypted data...";
-    const res = await fetch("data.enc");
+    const res = await fetch("logs.enc");
     if (!res.ok) throw new Error("Failed to load data.enc");
     const b64 = await res.text();
     const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
