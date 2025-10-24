@@ -48,37 +48,41 @@ document.querySelectorAll('.showcase-item').forEach(item => {
     observer.observe(item);
 });
 
-// Theme toggle functionality
-const themeToggleBtn = document.getElementById('theme-toggle-btn');
-const body = document.body;
-
-themeToggleBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    const isDarkMode = body.classList.contains('dark-mode');
-    themeToggleBtn.textContent = isDarkMode ? '☀️' : '🌙';
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-});
-
-// Load saved theme on page load
-window.addEventListener('load', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        themeToggleBtn.textContent = '☀️';
-    }
-});
 
 // Add scroll effect to navbar
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.background = isDark ? 'rgba(26, 26, 26, 0.95)' : 'rgba(255, 255, 255, 0.95)';
         navbar.style.backdropFilter = 'blur(20px)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.9)';
+        navbar.style.background = isDark ? 'rgba(26, 26, 26, 0.9)' : 'rgba(255, 255, 255, 0.9)';
         navbar.style.backdropFilter = 'blur(10px)';
     }
 });
+
+// Theme toggle functionality
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = themeToggle.querySelector('i');
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+}
+
+// Load saved theme or default to light
+const savedTheme = localStorage.getItem('theme') || 'light';
+setTheme(savedTheme);
+
+themeToggle.addEventListener('click', toggleTheme);
 
 // Prevent form submission for demo buttons (you can replace with actual functionality)
 document.querySelectorAll('.btn').forEach(btn => {
@@ -89,3 +93,8 @@ document.querySelectorAll('.btn').forEach(btn => {
         }
     });
 });
+
+const header = document.querySelector('.navbar');
+window.addEventListener('scroll', srl =>{
+    window.scrollY > 100 ? header.classList.add('sticky'): header.classList.remove('sticky');
+})
