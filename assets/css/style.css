@@ -22,7 +22,6 @@
     --feature-icon-color: #000;
     --download-icon-color: #000;
     --price-color: #000;
-    --hero-bg: linear-gradient(135deg, rgba(245,245,245,0.8) 0%, rgba(224,224,224,0.8) 100%), url('../images/background1.png') no-repeat center center / cover;
 }
 
 [data-theme="dark"] {
@@ -171,7 +170,11 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--hero-bg);
+    background-image: linear-gradient(135deg, rgba(245,245,245,0.8) 0%, rgba(224,224,224,0.8) 100%);
+    background-image: url(../images/about-bg.png);
+    background-image: url(../images/about2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
     background-blend-mode: multiply;
     position: relative;
     overflow: hidden;
